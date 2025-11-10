@@ -1,0 +1,30 @@
+package tn.esprit.gestionzoo.main;
+
+import tn.esprit.gestionzoo.entities.*;
+import tn.esprit.gestionzoo.exceptions.*;
+
+public class ZooManagement {
+    public static void main(String[] args) {
+        Zoo zoo = new Zoo("Parc Animalier", "Tunis");
+
+        // Création des animaux
+        Animal lion = new Animal("Félidé", "Lion", 5, true);
+        Animal tigre = new Animal("Félidé", "Shere Khan", 7, true);
+        Animal lionNegatif = new Animal("Félidé", "LionNégatif", -2, true);
+
+        // Ajouter des animaux avec gestion des exceptions
+        Animal[] animaux = {lion, tigre, lion, lionNegatif, new Animal("Test", "Test1", 3, false), new Animal("Test", "Test2", 2, false)};
+
+        for (Animal a : animaux) {
+            try {
+                zoo.addAnimal(a);
+            } catch (ZooFullException | InvalidAgeException e) {
+                System.out.println("Erreur : " + e.getMessage());
+            }
+            System.out.println("Nombre actuel d'animaux : " + zoo.animalCount);
+        }
+
+        // Afficher tous les animaux ajoutés
+        zoo.displayAnimals();
+    }
+}
